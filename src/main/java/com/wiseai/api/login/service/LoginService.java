@@ -31,6 +31,7 @@ public class LoginService {
 		}
 
 		final var customUserInfoDto = CustomUserInfoDto.of(user);
+		log.info("customUserInfoDto = " + customUserInfoDto);
 		final var token = jwtUtil.createJwtTokenDto(customUserInfoDto);
 		user.updateRefreshToken(token);
 		return LoginDto.Response.of(token);

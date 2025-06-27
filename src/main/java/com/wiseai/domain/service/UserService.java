@@ -29,7 +29,7 @@ public class UserService {
 			throw new IllegalArgumentException("이미 존재하는 회원입니다.");
 		};
 
-		final var user = User.from(request);
+		final var user = User.of(request);
 		user.updatePassword(encoder.encode(user.getPassword()));
 		final var savedUser = userRepository.save(user);
 

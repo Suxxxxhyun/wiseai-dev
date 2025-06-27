@@ -51,7 +51,7 @@ public class User extends BaseTimeEntity {
 	private LocalDateTime tokenExpirationTime;
 
 
-	public static User from(UserDto.Request request){
+	public static User of(UserDto.Request request){
 		return new User(
 			null,
 			request.email(),

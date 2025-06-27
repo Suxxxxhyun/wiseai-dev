@@ -13,7 +13,9 @@ import com.wiseai.domain.common.Response;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -24,7 +26,9 @@ public class LoginController implements LoginSwagger {
 	public ResponseEntity<Response<LoginDto.Response>> login(
 		@RequestBody @Valid final LoginDto.Request request
 	){
+		log.info("요청 들어옴");
 		final var response = loginService.login(request);
+		log.info("(로그인)response = " + response);
 		return ResponseEntity.ok(Response.ok(response));
 	}
 }

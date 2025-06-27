@@ -7,16 +7,31 @@ spring:
     properties:
       format_sql: true
       dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+      hibernate:
+        hbm2ddl:
+          auto: none
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
   datasource:
-    url: jdbc:mysql://localhost:3306/sionic?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/wiseai?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ENC(jec8vKAsSeZpbjjIinQpjQ==)
     password: ENC(MtsXD0psWswgmYbrY5u1iw==)
+  # 스케줄링 활성화
+#  task:
+#    scheduling:
+#      pool:
+#        size: 5
+#      thread-name-prefix: concert-scheduler-
 
 springdoc:
-  packages-to-scan: com.siai.api
+  packages-to-scan: com.wiseai.api
   default-consumes-media-type: application/json;charset=UTF-8
   default-produces-media-type: application/json;charset=UTF-8
   cache:
@@ -32,6 +47,13 @@ springdoc:
     tags-sorter: alpha          # alpha: 알파벳 순 태그 정렬, method: HTTP Method 순 정렬
     operations-sorter: alpha    # alpha: 알파벳 순 태그 정렬, method: HTTP Method 순 정렬
   override-with-generic-response: false # 일반화된 응답 사용 여부 결정
+
+# 콘서트 관련 설정
+concert:
+  reservation:
+    expiry-minutes: 10  # 좌석 예약 만료 시간 (분)
+  booking:
+    max-seats-per-user: 4  # 사용자당 최대 예매 가능 좌석 수
 
 jwt:
   secret: ENC(XoNzoPVD2ltlIjiOpLyGM/tyepsQWzQ3FYEbu1Y8snWM+PEWobqMpkaD9+IXiVPR16JruwhLWzXdVDpJy/UDIA==)

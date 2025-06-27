@@ -1,0 +1,141 @@
+### 콘서트 API 테스트
+
+### 0. 로그인 (토큰 획득)
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "email": "user1@concertmania.com",
+  "password": "password123"
+}
+
+### 0-1. 관리자 로그인 (관리자 토큰 획득)
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "email": "admin@concertmania.com",
+  "password": "password123"
+}
+
+### 1. 콘서트 목록 조회
+GET http://localhost:8080/api/concerts?page=0&size=10
+Content-Type: application/json
+
+### 2. 예매 가능한 콘서트 목록 조회
+GET http://localhost:8080/api/concerts/available?page=0&size=10
+Content-Type: application/json
+
+### 3. 콘서트 상세 조회 (BTS 콘서트)
+GET http://localhost:8080/api/concerts/1
+Content-Type: application/json
+
+### 4. 콘서트 좌석 배치도 조회 (BTS 콘서트)
+GET http://localhost:8080/api/concerts/1/seats
+Content-Type: application/json
+
+### 5. 콘서트 검색 (BTS 검색)
+GET http://localhost:8080/api/concerts/search?keyword=BTS&page=0&size=10
+Content-Type: application/json
+
+### 6. 아티스트별 콘서트 조회 (IU 검색)
+GET http://localhost:8080/api/concerts/artist?artist=IU&page=0&size=10
+Content-Type: application/json
+
+### 7. 좌석 선택 (로그인 필요) - BTS 콘서트 VIP석 2개 선택
+POST http://localhost:8080/api/concerts/1/seats/select
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "concertId": 1,
+  "seatIdentifiers": ["ROW1-1", "ROW1-2"]
+}
+
+### 8. 좌석 선택 (로그인 필요) - BTS 콘서트 R석 3개 선택
+POST http://localhost:8080/api/concerts/1/seats/select
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "concertId": 1,
+  "seatIdentifiers": ["ROW3-1", "ROW3-2", "ROW3-3"]
+}
+
+### 9. 관리자 - 콘서트 생성 (관리자 권한 필요)
+POST http://localhost:8080/api/admin/concerts
+Content-Type: application/json
+Authorization: Bearer {{adminAccessToken}}
+
+{
+  "title": "New Artist Concert",
+  "description": "새로운 아티스트의 콘서트입니다.",
+  "concertDate": "2024-09-15T19:00:00",
+  "venue": "올림픽공원",
+  "artist": "New Artist",
+  "bookingOpenTime": "2024-08-01T10:00:00",
+  "bookingCloseTime": "2024-09-10T23:59:59",
+  "totalSeats": 5000,
+  "seatGrades": [
+    {
+      "gradeName": "VIP",
+      "price": 150000,
+      "totalSeats": 1000,
+      "description": "VIP석"
+    },
+    {
+      "gradeName": "R석",
+      "price": 100000,
+      "totalSeats": 2000,
+      "description": "R석"
+    },
+    {
+      "gradeName": "S석",
+      "price": 70000,
+      "totalSeats": 2000,
+      "description": "S석"
+    }
+  ]
+}
+
+### 10. 관리자 - 콘서트 수정
+PUT http://localhost:8080/api/admin/concerts/1
+Content-Type: application/json
+Authorization: Bearer {{adminAccessToken}}
+
+{
+  "title": "BTS WORLD TOUR 'MAP OF THE SOUL' - UPDATED",
+  "description": "수정된 BTS 월드 투어 콘서트입니다.",
+  "concertDate": "2024-06-15T19:00:00",
+  "venue": "올림픽공원 체조경기장",
+  "artist": "BTS",
+  "bookingOpenTime": "2024-05-01T10:00:00",
+  "bookingCloseTime": "2024-06-10T23:59:59",
+  "status": "BOOKING_OPEN"
+}
+
+### 11. 관리자 - 콘서트 삭제
+DELETE http://localhost:8080/api/admin/concerts/3
+Authorization: Bearer {{adminAccessToken}}
+
+### 12. 콘서트 상세 조회 (IU 콘서트)
+GET http://localhost:8080/api/concerts/2
+Content-Type: application/json
+
+### 13. 콘서트 상세 조회 (BLACKPINK 콘서트)
+GET http://localhost:8080/api/concerts/3
+Content-Type: application/json
+
+### 14. 아티스트별 콘서트 조회 (BLACKPINK 검색)
+GET http://localhost:8080/api/concerts/artist?artist=BLACKPINK&page=0&size=10
+Content-Type: application/json
+
+### 15. 회원가입 테스트
+POST http://localhost:8080/api/signup
+Content-Type: application/json
+
+{
+  "email": "newuser@concertmania.com",
+  "password": "password123",
+  "name": "새로운사용자"
+} 

@@ -43,7 +43,7 @@ class UserServiceTest {
 			.password("1234")
 			.build();
 
-		User user = User.from(request);
+		User user = User.of(request);
 
 		// when
 		given(userRepository.existsByEmail("test@test.com")).willReturn(false);
