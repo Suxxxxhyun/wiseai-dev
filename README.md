@@ -95,15 +95,13 @@ graph LR
 
 ---
 
-## 🛠️ 기술 스택 요구사항
-
-### 필수 기술
+## 🛠️ 기술 스택
 
 - **Framework**: Spring Boot (3.x 버전 권장)
 - **ORM**: Spring Data JPA
 - **Language**: Java 또는 Kotlin
 
-### 자유 선택 기술
+### free
 
 - **Database**: MySQL, PostgreSQL, H2 등
 - **Caching**: Redis, Caffeine, EhCache 등
@@ -111,7 +109,7 @@ graph LR
 - **Testing**: JUnit 5, TestContainers, MockMvc 등
 - **Monitoring**: Micrometer, Actuator, Prometheus 등
 
-### 인프라 요구사항
+### 인프라 스택
 
 - **컨테이너화**: Docker + Docker Compose 필수
 - **API 문서화**: Swagger/OpenAPI 3.0 필수
