@@ -111,8 +111,8 @@ graph LR
 
 ### 인프라 스택
 
-- **컨테이너화**: Docker + Docker Compose 필수
-- **API 문서화**: Swagger/OpenAPI 3.0 필수
+- **컨테이너화**: Docker + Docker Compose
+- **API 문서화**: Swagger/OpenAPI 3.0
 - **환경 설정**: 개발/테스트 환경 분리
 
 ---
