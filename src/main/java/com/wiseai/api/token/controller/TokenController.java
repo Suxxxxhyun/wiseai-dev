@@ -19,13 +19,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/")
 @RequiredArgsConstructor
 public class TokenController implements TokenSwagger {
 
 	private final TokenService tokenService;
 
-	@PostMapping("/access-token/issue")
+	@PostMapping("/access-token/reissue")
 	public ResponseEntity<Response<AccessTokenDto.Response>> createAccessToken(
 		final HttpServletRequest httpServletRequest
 	) {

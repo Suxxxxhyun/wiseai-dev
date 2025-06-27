@@ -4,12 +4,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wiseai.domain.common.Response;
 import com.wiseai.domain.dto.ConcertDto;
 import com.wiseai.domain.dto.SeatDto;
+import com.wiseai.global.security.details.CustomUserDetails;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -36,6 +39,13 @@ public interface ConcertSwagger {
     @Operation(summary = "콘서트 좌석 배치도 조회", description = "콘서트의 좌석 배치도와 상태를 조회합니다.")
     ResponseEntity<Response<SeatDto.SeatMapResponse>> getConcertSeatMap(
         @Parameter(description = "콘서트 ID") @PathVariable final Long concertId
+    );
+
+    @Operation(summary = "좌석 선택", description = "좌석을 선택하여 임시 예약합니다. (10분 유효)")
+    ResponseEntity<Response<SeatDto.SeatSelectionResponse>> selectSeats(
+        @AuthenticationPrincipal CustomUserDetails userDetails,
+        @Parameter(description = "콘서트 ID") @PathVariable final Long concertId,
+        @RequestBody final SeatDto.SeatSelectionRequest request
     );
     
     @Operation(summary = "콘서트 검색", description = "제목으로 콘서트를 검색합니다.")

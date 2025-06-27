@@ -38,13 +38,12 @@ public class SecurityConfig {
 	}
 
 	private static final String[] AUTH_WHITELIST = {
-		"/api/auth/signup",
-		"/api/auth/login",
-		"/api/auth/access-token/issue",
+		"/api/signup",
+		"/api/login",
+		"/api/access-token/reissue",
 		"/swagger-ui/**",
 		"/api-docs/**",
-		"/swagger-resources/**",
-		"/api/concerts/**"
+		"/swagger-resources/**"
 	};
 
 	@Bean
@@ -72,7 +71,7 @@ public class SecurityConfig {
 		//권한 규칙 작성
 		http.authorizeHttpRequests(authorize -> authorize
 			.requestMatchers(AUTH_WHITELIST).permitAll()
-			.requestMatchers("/api/users/admin").hasRole("ADMIN")
+			.requestMatchers("/api/admin/**").hasRole("ADMIN")
 			//@PreAuthorization 사용 -> 모든 경로에 대한 인증처리는 Pass
 			.anyRequest().authenticated()
 		);
